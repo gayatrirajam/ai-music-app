@@ -16,6 +16,7 @@ body{
     font-size: 20px;
 }
 canvas{
-    border: solid rgb(255, 255, 255);
-    border-radius: 30px;
+    border: solid;
+    border-width: 20px;
+    border-color: white;
 }
