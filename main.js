@@ -7,6 +7,7 @@ var leftwristY = "";
 var rightwristX = "";
 var rightwristY = "";
 var score_left_wrist = "";
+var score_right_wrist = "";
 
 function preload(){
     hedwigtheme = loadSound("hedwig_s_theme.mp3");
@@ -27,6 +28,7 @@ function modelLoaded(){
 function gotPoses(results){
     if(results.length > 0){
         console.log(results);
+        score_right_wrist = results[0].pose.keypoints[10].score;
         score_left_wrist = results[0].pose.keypoints[9].score;
         console.log("Confidence of left wrist: " + score_left_wrist);
         leftwristX = results[0].pose.leftWrist.x;
@@ -46,7 +48,16 @@ function draw(){
         hedwigtheme.stop();
         if(starwarstheme_check == false){
             starwarstheme.play();
-            document.getElementById("songname").innerHTML = "Star Wars Theme";
+            document.getElementById("songname").innerHTML = "Song Name - Star Wars Theme";
+        }
+    }
+    hedwigtheme_check = hedwigtheme.isPlaying();
+    if(score_right_wrist > 0.2){
+        circle(rightwristX, rightwristY, 25);
+        starwarstheme.stop();
+        if(hedwigtheme_check == false){
+            hedwigtheme.play();
+            document.getElementById("songname").innerHTML = "Song Name - Hedwig's Theme";
         }
     }
 }
